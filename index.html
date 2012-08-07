@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Bits o' Life</title>
+	<link rel="stylesheet" href="bol.css" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="bol.js"></script>
+</head>
+<body>
+	<div>
+		<h1>Bits o' Life</h1>
+	</div>
+	<div id="sizeContainer">
+		<form name="setSize">
+			<label for="size">Enter the city grid size for your game:</label>
+			<input type="text" name="size" id="size" value="20" />
+			<input type="submit" value="Begin" id="begin" />
+		</form>
+	</div>
+	<div class="grid">
+		<h3>Generations to date:</h3><span id="numGenerations" class="info">0</span>
+		<input type="submit" value="Evolve" id="evolve" />
+		<table class="grid">
+		</table>
+	</div>	
+</body>
+</html>

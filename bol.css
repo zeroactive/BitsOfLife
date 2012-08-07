@@ -1,0 +1,27 @@
+/*!
+ * Bits o' Life
+ * Population evolution simulation
+ */
+.bg { 
+	background-color: #000;
+}
+
+h1,h2,h3,h4,h4,h6,h7 {
+	display: inline;
+	padding-right: 10px;
+}
+
+label { 
+	float: left;
+	display: inline;
+	padding-right: 10px;
+}
+
+.info {
+	display: inline;
+	padding-right: 10px;
+}
+
+div.grid {
+	display: none;
+}
