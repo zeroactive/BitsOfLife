@@ -25,3 +25,7 @@ label {
 div.grid {
 	display: none;
 }
+
+.regrowth {
+	background-color: lime;
+}

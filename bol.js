@@ -66,10 +66,9 @@ sim.Generations = 0;
 		// Show regrowth
 		for(var i=0;i<sim.Regrowth.length;i++) {	
 			var r = sim.Regrowth[i].split(",");
-			$('tr[data-row='+r[0]+'] td[data-cell='+r[1]+']').css("background-color","lime");
+			$('tr[data-row='+r[0]+'] td[data-cell='+r[1]+']').addClass("regrowth");
 		}			
 	}
-
 
 	this.createRow = function(rowId) {
 		var row = $("<tr/>").attr("data-row", rowId);
@@ -96,23 +95,40 @@ sim.Generations = 0;
 		for(var x=0;x<sim.GridSize;x++) {
 			tempMap[x] = [];	
 			for(var y=0;y<sim.GridSize;y++) {
-				var n = [0,0,0,0];
+				var n = [0,0,0,0,0,0,0,0];
+				var bounds = sim.GridSize-1;
 
-				// Check above	
+				// Check North	
 				if(x > 0) {
 					n[0] = sim.Map[x-1][y];	
 				}
-				// Check right
-				if(y < sim.GridSize-1) {
-					n[1] = sim.Map[x][y+1];	
+				// Check North East
+				if(x > 0 && y < bounds) {
+					n[1] = sim.Map[x-1][y+1];	
+				}	
+				// Check East
+				if(y < bounds) {
+					n[2] = sim.Map[x][y+1];	
 				}
-				// Check down
-				if(x < sim.GridSize-1) {
-					n[2] = sim.Map[x+1][y];	
+				// Check South East
+				if(x < bounds && y < bounds) {
+					n[3] = sim.Map[x+1][y+1];	
 				}
-				// Check left
+				// Check South
+				if(x < bounds) {
+					n[4] = sim.Map[x+1][y];	
+				}
+				// Check South West
+				if(x < bounds && y > 0) {
+					n[5] = sim.Map[x+1][y-1];	
+				}
+				// Check West
 				if(y > 0) {
-					n[1] = sim.Map[x][y-1];	
+					n[6] = sim.Map[x][y-1];	
+				}
+				// Check North West
+				if(x > 0 && y > 0) {
+					n[7] = sim.Map[x-1][y-1];	
 				}
 
 				var score = 0;  
@@ -131,13 +147,19 @@ sim.Generations = 0;
 					case 2: // 2 neighbors = stay the same
 						tempMap[x][y] = sim.Map[x][y];
 						break;
-					case 3: // 3 neighbors = regrow
+					case 3: // 3 neighbors
 						tempMap[x][y] = 1;
-						sim.Regrowth.push(x + "," + y);	
+						if(sim.Map[x][y] === 0) {
+							// Regrow city
+							sim.Regrowth.push(x + "," + y);	
+						}
 						break;
 					case 4: // 4 neighbors = not enough food = death
 						tempMap[x][y] = 0;
-						break;			
+						break;
+					default: // More than 4 neighbors = not enough food = death
+						tempMap[x][y] = 0;
+						break;	
 				}
 			}
 		}
